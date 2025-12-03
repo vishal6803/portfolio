@@ -6,13 +6,17 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-    <title>Next-Gen Portfolio | Responsive</title>
+    <title>Next-Gen Portfolio | Interactive</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
 
     <style>
@@ -44,7 +48,7 @@
         background: var(--bg);
         color: var(--fg);
         font-family: "Space Grotesk", monospace;
-        overflow: hidden; /* Prevents body scroll, we scroll main instead */
+        overflow: hidden;
       }
 
       /* ---------------------------------
@@ -61,13 +65,13 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        z-index: 50; /* Above everything during transition */
+        z-index: 50;
         background: currentColor;
         opacity: 0;
       }
 
       /* ---------------------------------
-       * 🧊 Fixed Sidebar (Desktop)
+       * 🧊 Sidebar
        * --------------------------------- */
       .sidebar {
         position: fixed;
@@ -81,7 +85,6 @@
         gap: 25px;
         padding-left: 40px;
         z-index: 20;
-
         background: var(--glass);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -108,7 +111,6 @@
         text-shadow: 0 0 10px var(--accent-glow);
       }
 
-      /* Glitch Indicator */
       .menu-item::before {
         content: "";
         position: absolute;
@@ -121,24 +123,20 @@
         transition: width 0.4s var(--easing);
         transform: translateY(-50%);
       }
-      .menu-item.active::before {
-        width: 12px;
-      }
+      .menu-item.active::before,
       .menu-item:hover::before {
         width: 12px;
       }
 
       /* ---------------------------------
-       * 📜 Scrollable Main Content
+       * 📜 Content
        * --------------------------------- */
       main {
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
-        left: var(--sidebar-width); /* Push content to right of sidebar */
-
-        /* SCROLL LOGIC */
+        left: var(--sidebar-width);
         overflow-y: auto;
         overflow-x: hidden;
         z-index: 5;
@@ -146,7 +144,6 @@
         scroll-behavior: smooth;
       }
 
-      /* Custom Sci-Fi Scrollbar */
       main::-webkit-scrollbar {
         width: 8px;
       }
@@ -162,7 +159,7 @@
       }
 
       .content-container {
-        min-height: 100vh; /* Ensure full height */
+        min-height: 100vh;
         padding: 80px 100px;
         max-width: 1000px;
         margin: 0 auto;
@@ -191,9 +188,9 @@
       #node-container {
         position: relative;
         width: 100%;
-        height: 500px; /* Fixed height for canvas */
+        height: 500px;
         margin-top: 40px;
-        margin-bottom: 60px; /* Space at bottom for scrolling */
+        margin-bottom: 60px;
         background: rgba(0, 0, 0, 0.3);
         border: 1px solid var(--glass-border);
         border-radius: 16px;
@@ -224,7 +221,6 @@
           inset 0 0 10px var(--accent-glow);
         cursor: pointer;
         z-index: 2;
-        /* Prevent selection during drag */
         user-select: none;
       }
 
@@ -253,16 +249,66 @@
         opacity: 1;
         top: -45px;
       }
+      /* --- Data Log Styling --- */
+.project-log-container {
+    margin-top: 40px;
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.log-header, .log-entry {
+    display: grid;
+    grid-template-columns: 50px 2fr 1.5fr 1fr; /* Defines column widths */
+    padding: 15px 20px;
+    align-items: center;
+    font-size: 0.95rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.log-header {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--glass-border);
+    text-transform: uppercase;
+}
+
+.log-entry {
+    color: var(--fg);
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-entry:hover {
+    background: rgba(0, 212, 255, 0.1); /* Slight accent background */
+    color: #fff;
+    box-shadow: inset 3px 0 0 var(--accent); /* Left border glow */
+}
+
+.log-status {
+    font-weight: 700;
+    text-align: right;
+}
+
+.log-status.online {
+    color: var(--accent); /* Cyan */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.6);
+}
+
+.log-status.offline {
+    color: #ff5500; /* Orange/Red for limited access */
+}
 
       /* ---------------------------------
-       * 📱 RESPONSIVE (Mobile)
+       * 📱 RESPONSIVE
        * --------------------------------- */
       @media (max-width: 900px) {
-        /* Convert Sidebar to Bottom Navigation */
         :root {
           --sidebar-width: 0px;
         }
-
         .sidebar {
           top: auto;
           bottom: 0;
@@ -276,16 +322,13 @@
           padding: 0;
           border-right: none;
           border-top: 1px solid var(--glass-border);
-          background: rgba(5, 5, 5, 0.95); /* Darker bg for contrast */
+          background: rgba(5, 5, 5, 0.95);
         }
-
         .menu-item {
           font-size: 0.85rem;
           letter-spacing: 1px;
           padding: 10px;
         }
-
-        /* Adjust indicator for horizontal layout */
         .menu-item::before {
           top: auto;
           bottom: 0;
@@ -298,26 +341,19 @@
         .menu-item:hover::before {
           width: 20px;
         }
-
-        /* Content adjustments */
         main {
           left: 0;
-          bottom: var(--mobile-nav-height); /* Stop scrolling before nav bar */
+          bottom: var(--mobile-nav-height);
         }
-
         .content-container {
-          padding: 40px 25px;
-          /* Add extra padding at bottom so content isn't hidden behind nav */
-          padding-bottom: 80px;
+          padding: 40px 25px 80px 25px;
         }
-
         h1 {
           font-size: 2.8rem;
         }
         p {
           font-size: 1.1rem;
         }
-
         #node-container {
           height: 350px;
         }
@@ -327,7 +363,6 @@
 
   <body>
     <canvas id="glcanvas"></canvas>
-
     <div id="overlay"></div>
 
     <nav class="sidebar">
@@ -346,14 +381,13 @@
 
     <script>
       /* --------------------------------------------------------------------------
-       * ⚙️ CONFIGURATION
+       * ⚙️ CONFIG & DATA
        * -------------------------------------------------------------------------- */
       const THEMES = {
         home: {
           bg: "#050505",
           fg: "#e0e6ed",
           accent: "#4cc9f0",
-          // UPDATED: Darker, semi-transparent teal-blue for smooth transition
           overlay: "#1a4a58b3",
           threeColor: 0x4cc9f0,
         },
@@ -361,7 +395,6 @@
           bg: "#0d0612",
           fg: "#fcefed",
           accent: "#f72585",
-          // UPDATED: Darker, semi-transparent magenta/pink
           overlay: "#500a2cb3",
           threeColor: 0xf72585,
         },
@@ -369,7 +402,6 @@
           bg: "#020f12",
           fg: "#d4fff7",
           accent: "#00f5d4",
-          // UPDATED: Darker, semi-transparent cyan/mint
           overlay: "#014c40b3",
           threeColor: 0x00f5d4,
         },
@@ -377,7 +409,6 @@
           bg: "#0b0b1e",
           fg: "#dedeff",
           accent: "#7209b7",
-          // UPDATED: Darker, semi-transparent purple
           overlay: "#30044eb3",
           threeColor: 0x7209b7,
         },
@@ -386,76 +417,59 @@
       const PAGES = {
         home: `
           <div>
-  <h1 data-scramble="true">HELLO_WORLD</h1>
-
-  <p>
-    I build modern web interfaces with a focus on motion, responsiveness, and clean UI engineering.
-    This space blends Three.js visuals with GSAP-driven transitions for an immersive feel.
-  </p>
-
-  <p>
-    // STATUS: ONLINE<br>
-    // ROLE: FRONTEND_DEVELOPER<br>
-    // EXPERIENCE: <strong>1.3 YEARS</strong><br>
-    // STACK: REACT • JS/TS • UI SYSTEMS
-  </p>
-  </div>
+            <h1 data-scramble="true">HELLO_WORLD</h1>
+            <p>I build modern web interfaces with a focus on motion, responsiveness, and clean UI engineering.</p>
+            <p>// STATUS: ONLINE<br>// ROLE: FRONTEND_DEVELOPER<br>// EXPERIENCE: <strong>1.3 YEARS</strong><br>// STACK: REACT • JS/TS • UI SYSTEMS</p>
+            <p style="font-size:0.9rem; opacity:0.6; margin-top:50px;">* Scroll to engage warp drive.</p>
+          </div>
         `,
         projects: `
           <div style="width: 100%;">
             <h1 data-scramble="true">SYSTEM_NODES</h1>
-            <p>Drag nodes to interact with the physics engine. Connections represent tech-stack dependencies.</p>
-            <div id="node-container">
-              <canvas id="node-canvas"></canvas>
-            </div>
-            <p>Projects include:</p>
-            <ul style="line-height:2; font-size:1.1rem; list-style:none; padding:0;">
-              <li style="border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0;">🚀 <strong>Portfolio V1</strong> - React & Framer Motion</li>
-              <li style="border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0;">🎮 <strong>Game Engine</strong> - C++ & OpenGL</li>
-              <li style="border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 0;">🧠 <strong>AI Chatbot</strong> - Python & TensorFlow</li>
-            </ul>
+            <h3 style="color:var(--accent); margin-top:40px;">Skills</h3>
+            <div id="node-container"><canvas id="node-canvas"></canvas></div>
+           <div class="project-log-container">
+    <div class="log-header">
+        <span class="log-index">#ID</span>
+        <span class="log-title">System Name</span>
+        <span class="log-stack">Core Stack</span>
+        <span class="log-status">Link / Status</span>
+    </div>
+    <a href="[LINK_TO_PROJECT_1]" target="_blank" class="log-entry">
+        <span class="log-index">001</span>
+        <span class="log-title">🚀 Portfolio V1</span>
+        <span class="log-stack">React & Framer Motion</span>
+        <span class="log-status online">ACCESS GRANTED</span>
+    </a>
+    <a href="[LINK_TO_PROJECT_2]" target="_blank" class="log-entry">
+        <span class="log-index">002</span>
+        <span class="log-title">🎮 Game Engine</span>
+        <span class="log-stack">C++ & OpenGL</span>
+        <span class="log-status offline">ACCESS LIMITED</span>
+    </a>
+    <a href="[LINK_TO_PROJECT_3]" target="_blank" class="log-entry">
+        <span class="log-index">003</span>
+        <span class="log-title">🧠 AI Chatbot</span>
+        <span class="log-stack">Python & TensorFlow</span>
+        <span class="log-status online">ACCESS GRANTED</span>
+    </a>
+</div>
           </div>
         `,
         about: `
           <div>
-  <h1 data-scramble="true">
-    Vishal — <span class="scramble">Frontend Developer</span>
-  </h1>
-
-  <p>
-    Frontend Developer with 1.3 years of experience building clean, reliable,
-    and scalable web applications. I specialize in React and TypeScript,
-    focusing on fast performance and polished UI development.
-  </p>
-
-  <h3 style="color:var(--accent); margin-top:40px;">Skills</h3>
-  <p>
-    React, JavaScript (ES6+), TypeScript, MUI, Tailwind, Redux Toolkit,
-    RTK Query, Next.js (CSR), Node.js (basic), Express (basic), SQL (basic),
-    UI Development, API Integration.
-  </p>
-
-  <h3 style="color:var(--accent); margin-top:40px;">Experience</h3>
-  <p>
-    1.3 years of experience delivering production-grade frontend features.
-    Worked on ERP dashboards, weather apps, news apps, quiz platforms, and
-    a Splitwise-style expense app. Experienced with React, MUI, RTK Query,
-    component architecture, and building UI for real-world products as a
-    Frontend Developer Trainee.
-  </p>
-
-  <h3 style="color:var(--accent); margin-top:40px;">Background</h3>
-  <p>
-    I focus on writing clean reusable components, improving UX flow, and
-    creating scalable frontend structures suitable for long-term product growth.
-  </p>
-</div>
-
+            <h1 data-scramble="true">Vishal — <span class="scramble">Dev</span></h1>
+            <p>Frontend Developer with 1.3 years of experience building clean, reliable, and scalable web applications. I specialize in React and TypeScript.</p>
+            <h3 style="color:var(--accent); margin-top:40px;">Skills</h3>
+            <p>React, JavaScript (ES6+), TypeScript, MUI, Tailwind, Redux Toolkit, RTK Query, Next.js (CSR), Node.js (basic).</p>
+            <h3 style="color:var(--accent); margin-top:40px;">Experience</h3>
+            <p>1.3 years of experience delivering production-grade frontend features. Worked on ERP dashboards, weather apps, news apps, and expense trackers.</p>
+          </div>
         `,
         contact: `
           <div>
             <h1 data-scramble="true">SIGNAL_UPLINK</h1>
-            <p>Transmission channels are open. Send encrypted data packets or simple text messages.</p>
+            <p>Transmission channels are open.</p>
             <p style="color: var(--accent); font-weight: bold; font-size: 2rem; margin-top:20px;">email@future.net</p>
             <div style="margin-top: 50px; padding: 30px; border: 1px solid var(--glass-border); background: var(--glass); border-radius: 12px;">
                 <p style="margin:0 0 10px 0; font-size:0.9rem; color:var(--accent);">SEND MESSAGE</p>
@@ -489,9 +503,9 @@
       }
 
       /* --------------------------------------------------------------------------
-       * 🌟 3D BACKGROUND
+       * 🌟 3D SCENE MANAGER
        * -------------------------------------------------------------------------- */
-      class StarField {
+      class SceneManager {
         constructor() {
           this.canvas = document.getElementById("glcanvas");
           this.renderer = new THREE.WebGLRenderer({
@@ -499,25 +513,32 @@
             alpha: true,
             antialias: true,
           });
-          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimize for mobile
+          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
           this.scene = new THREE.Scene();
           this.camera = new THREE.PerspectiveCamera(
             75,
             window.innerWidth / window.innerHeight,
             0.1,
-            1000
+            2000
           );
           this.camera.position.z = 400;
+
           this.mouse = { x: 0, y: 0 };
-          this.targetRotation = { x: 0, y: 0 };
-          this.initParticles();
+          this.scrollSpeed = 0;
+
+          this.objects = []; // Floating shapes
+
+          this.initStars();
+          this.initDataRain();
+          this.initFloatingShapes();
           this.addListeners();
           this.animate();
         }
 
-        initParticles() {
+        /* 1. Background Stars */
+        initStars() {
           const geometry = new THREE.BufferGeometry();
-          const count = 800; // Reduced count slightly for mobile performance
+          const count = 1000;
           const posArray = new Float32Array(count * 3);
           for (let i = 0; i < count * 3; i++)
             posArray[i] = (Math.random() - 0.5) * 1500;
@@ -525,29 +546,122 @@
             "position",
             new THREE.BufferAttribute(posArray, 3)
           );
+
           const sprite = new THREE.TextureLoader().load(
             "https://threejs.org/examples/textures/sprites/disc.png"
           );
-          this.material = new THREE.PointsMaterial({
-            size: 4,
+          this.starMaterial = new THREE.PointsMaterial({
+            size: 3,
             map: sprite,
             transparent: true,
             color: THEMES.home.threeColor,
             blending: THREE.AdditiveBlending,
-            depthWrite: false,
             opacity: 0.8,
+            depthWrite: false,
           });
-          this.particles = new THREE.Points(geometry, this.material);
-          this.scene.add(this.particles);
+          this.starParticles = new THREE.Points(geometry, this.starMaterial);
+          this.scene.add(this.starParticles);
+        }
+
+        /* 2. Falling Data / Commits */
+        initDataRain() {
+          // Creating vertical streaks of data
+          const geometry = new THREE.BufferGeometry();
+          const count = 300;
+          const posArray = new Float32Array(count * 3);
+          const speeds = [];
+
+          for (let i = 0; i < count; i++) {
+            posArray[i * 3] = (Math.random() - 0.5) * 1200; // x
+            posArray[i * 3 + 1] = (Math.random() - 0.5) * 1000; // y
+            posArray[i * 3 + 2] = (Math.random() - 0.5) * 600; // z
+            speeds.push(Math.random() * 2 + 0.5);
+          }
+
+          geometry.setAttribute(
+            "position",
+            new THREE.BufferAttribute(posArray, 3)
+          );
+          this.rainGeometry = geometry;
+          this.rainSpeeds = speeds;
+
+          this.rainMaterial = new THREE.PointsMaterial({
+            color: THEMES.home.threeColor,
+            size: 4,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+          });
+
+          this.rainSystem = new THREE.Points(geometry, this.rainMaterial);
+          this.scene.add(this.rainSystem);
+        }
+
+        /* 3. Floating Tech Artifacts */
+        initFloatingShapes() {
+          const geometries = [
+            new THREE.IcosahedronGeometry(30, 0),
+            new THREE.TorusGeometry(20, 5, 16, 100),
+            new THREE.OctahedronGeometry(25),
+          ];
+
+          for (let i = 0; i < 4; i++) {
+            const geom =
+              geometries[Math.floor(Math.random() * geometries.length)];
+            const mat = new THREE.MeshBasicMaterial({
+              color: THEMES.home.threeColor,
+              wireframe: true,
+              transparent: true,
+              opacity: 0.15,
+            });
+            const mesh = new THREE.Mesh(geom, mat);
+
+            // Random Position
+            mesh.position.set(
+              (Math.random() - 0.5) * 800,
+              (Math.random() - 0.5) * 600,
+              (Math.random() - 0.5) * 400 - 100
+            );
+
+            // Random Rotation speed
+            mesh.userData = {
+              rotX: (Math.random() - 0.5) * 0.01,
+              rotY: (Math.random() - 0.5) * 0.01,
+            };
+
+            this.scene.add(mesh);
+            this.objects.push(mesh);
+          }
         }
 
         changeColor(hexColor) {
           const target = new THREE.Color(hexColor);
-          gsap.to(this.material.color, {
+
+          // Animate Stars
+          gsap.to(this.starMaterial.color, {
             r: target.r,
             g: target.g,
             b: target.b,
             duration: 1.5,
+          });
+
+          // Animate Rain
+          gsap.to(this.rainMaterial.color, {
+            r: target.r,
+            g: target.g,
+            b: target.b,
+            duration: 1.5,
+          });
+
+          // Animate Shapes
+          this.objects.forEach((obj) => {
+            gsap.to(obj.material.color, {
+              r: target.r,
+              g: target.g,
+              b: target.b,
+              duration: 1.5,
+            });
           });
         }
 
@@ -557,36 +671,112 @@
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
           });
+
           window.addEventListener("mousemove", (e) => {
             this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
             this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+          });
+
+          // Scroll Speed Boost
+          const scroller = document.getElementById("main-scroller");
+          let scrollTimeout;
+          scroller.addEventListener("scroll", () => {
+            this.scrollSpeed = 5; // Warp speed!
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+              gsap.to(this, { scrollSpeed: 0, duration: 0.5 });
+            }, 100);
           });
         }
 
         animate() {
           requestAnimationFrame(this.animate.bind(this));
-          this.targetRotation.x +=
-            (this.mouse.y * 0.5 - this.targetRotation.x) * 0.05;
-          this.targetRotation.y +=
-            (this.mouse.x * 0.5 - this.targetRotation.y) * 0.05;
-          this.particles.rotation.x += 0.0005;
-          this.particles.rotation.y += 0.0005;
-          this.scene.rotation.x = this.targetRotation.x * 0.2;
-          this.scene.rotation.y = this.targetRotation.y * 0.2;
+
+          // 1. Rotate entire Star System based on mouse
+          this.starParticles.rotation.x += 0.0005;
+          this.starParticles.rotation.y += 0.0005;
+
+          // Mouse Parallax
+          const targetRotX = this.mouse.y * 0.2;
+          const targetRotY = this.mouse.x * 0.2;
+          this.scene.rotation.x += (targetRotX - this.scene.rotation.x) * 0.05;
+          this.scene.rotation.y += (targetRotY - this.scene.rotation.y) * 0.05;
+
+          // 2. Animate Data Rain (Falling)
+          const positions = this.rainGeometry.attributes.position.array;
+          for (let i = 0; i < 300; i++) {
+            // Y position -= speed + scrollBoost
+            positions[i * 3 + 1] -= this.rainSpeeds[i] + this.scrollSpeed * 2;
+
+            // Reset to top if out of bounds
+            if (positions[i * 3 + 1] < -500) {
+              positions[i * 3 + 1] = 500;
+              positions[i * 3] = (Math.random() - 0.5) * 1200; // Randomize X again
+            }
+          }
+          this.rainGeometry.attributes.position.needsUpdate = true;
+
+          // 3. Animate Floating Objects
+          this.objects.forEach((obj) => {
+            obj.rotation.x += obj.userData.rotX + this.scrollSpeed * 0.01;
+            obj.rotation.y += obj.userData.rotY;
+            // Gentle float
+            obj.position.y +=
+              Math.sin(Date.now() * 0.001 + obj.position.x) * 0.1;
+          });
+
+          // Move camera slightly on Z based on scroll speed for "Warp" feel
+          this.camera.position.z = 400 - this.scrollSpeed * 10;
+
           this.renderer.render(this.scene, this.camera);
         }
       }
 
       /* --------------------------------------------------------------------------
-       * 🕸️ NODE SYSTEM
+       * 🕸️ NODE SYSTEM (2D)
        * -------------------------------------------------------------------------- */
       const PROJECTS_DATA = [
-        { name: "Three", icon: "💎" },
-        { name: "React", icon: "⚛️" },
-        { name: "Node", icon: "🟢" },
-        { name: "WebGL", icon: "🕸️" },
-        { name: "AI", icon: "🧠" },
-        { name: "UX", icon: "🎨" },
+        {
+          name: "JavaScript",
+          icon: '<i class="devicon-javascript-plain colored"></i>',
+        },
+        {
+          name: "TypeScript",
+          icon: '<i class="devicon-typescript-plain colored"></i>',
+        },
+        { name: "HTML", icon: '<i class="devicon-html5-plain colored"></i>' },
+        { name: "CSS", icon: '<i class="devicon-css3-plain colored"></i>' },
+        {
+          name: "Redux Toolkit",
+          icon: '<i class="devicon-redux-original colored"></i>',
+        },
+        {
+          name: "Next.js",
+          icon: '<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="24"/>',
+        },
+        {
+          name: "Node.js",
+          icon: '<i class="devicon-nodejs-plain colored"></i>',
+        },
+        { name: "Express", icon: '<i class="devicon-express-original"></i>' },
+        // { name: "REST API", icon: '<i class="devicon-api-original"></i>' }, // no official API icon
+        {
+          name: "REST API",
+          icon: '<svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M5 12h14M12 5v14M4 4h4v4H4zm12 0h4v4h-4zM4 16h4v4H4zm12 0h4v4h-4z"/></svg>',
+        },
+
+        {
+          name: "Tailwind",
+          icon: '<i class="devicon-tailwindcss-plain colored"></i>',
+        },
+        {
+          name: "Material UI",
+          icon: '<i class="devicon-materialui-plain colored"></i>',
+        },
+        {
+          name: "Bootstrap",
+          icon: '<i class="devicon-bootstrap-plain colored"></i>',
+        },
       ];
       let nodeSimulation = null;
 
@@ -597,13 +787,11 @@
 
         const ctx = canvas.getContext("2d");
 
-        // Wait for layout to settle before sizing
         setTimeout(() => {
           canvas.width = container.clientWidth;
           canvas.height = container.clientHeight;
         }, 50);
 
-        // Update on resize
         const resizeObserver = new ResizeObserver(() => {
           canvas.width = container.clientWidth;
           canvas.height = container.clientHeight;
@@ -617,8 +805,7 @@
           vy: (Math.random() - 0.5) * 1.5,
         }));
 
-        // Create DOM Elements
-        container.innerHTML = ""; // Clear prev
+        container.innerHTML = "";
         container.appendChild(canvas);
 
         const domNodes = PROJECTS_DATA.map((p, i) => {
@@ -632,6 +819,25 @@
             delay: i * 0.1,
             ease: "back.out(1.7)",
           });
+
+          // Basic Drag Logic
+          let isDragging = false;
+          el.addEventListener("mousedown", () => {
+            isDragging = true;
+          });
+          window.addEventListener("mouseup", () => {
+            isDragging = false;
+          });
+          window.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+              const rect = container.getBoundingClientRect();
+              nodes[i].x = e.clientX - rect.left;
+              nodes[i].y = e.clientY - rect.top;
+              nodes[i].vx = 0;
+              nodes[i].vy = 0;
+            }
+          });
+
           return el;
         });
 
@@ -650,12 +856,10 @@
             if (n.x <= 20 || n.x >= width - 20) n.vx *= -1;
             if (n.y <= 20 || n.y >= height - 20) n.vy *= -1;
 
-            // Sync DOM
             domNodes[i].style.transform = `translate(${n.x - 22}px, ${
               n.y - 22
             }px)`;
 
-            // Draw Lines
             for (let j = i + 1; j < nodes.length; j++) {
               const dx = n.x - nodes[j].x;
               const dy = n.y - nodes[j].y;
@@ -673,18 +877,18 @@
       }
 
       /* --------------------------------------------------------------------------
-       * 🧭 NAVIGATION
+       * 🧭 PAGE LOGIC
        * -------------------------------------------------------------------------- */
       const menuItems = document.querySelectorAll(".menu-item");
       const contentContainer = document.getElementById("content");
       const scroller = document.getElementById("main-scroller");
       const overlay = document.getElementById("overlay");
-      const bg3D = new StarField();
+      const bg3D = new SceneManager();
 
       function loadPage(pageKey) {
         const theme = THEMES[pageKey];
 
-        // CSS Vars
+        // Animate CSS Vars
         gsap.to(document.documentElement, {
           "--bg": theme.bg,
           "--fg": theme.fg,
@@ -693,9 +897,11 @@
           duration: 1,
         });
 
+        // Trigger 3D Color Change
         bg3D.changeColor(theme.threeColor);
-        overlay.style.backgroundColor = theme.overlay;
 
+        // Page Transition
+        overlay.style.backgroundColor = theme.overlay;
         const tl = gsap.timeline();
         tl.to(overlay, {
           opacity: 1,
@@ -703,8 +909,6 @@
           ease: "power2.inOut",
           onComplete: () => {
             contentContainer.innerHTML = PAGES[pageKey];
-
-            // IMPORTANT: Reset Scroll Position
             scroller.scrollTop = 0;
 
             if (nodeSimulation) cancelAnimationFrame(nodeSimulation);
